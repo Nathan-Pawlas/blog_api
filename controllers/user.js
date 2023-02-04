@@ -1,6 +1,6 @@
 import { db } from "../db.js"
 
-export const getPosts = (req,res)=> {
+export const getUsers = (req,res)=> {
     const q = req.query.cat ? "SELECT * FROM users WHERE id=?" 
     : "SELECT * FROM users"
 
