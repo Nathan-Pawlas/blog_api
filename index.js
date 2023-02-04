@@ -3,15 +3,10 @@ import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
 import postRoutes from "./routes/posts.js"
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
 import multer from 'multer'
 
 const app = express()
-
-var corsOptions = {
-  origin: "https://main--zesty-starlight-1234d5.netlify.app/",
-  credentials: true,
-};
-app.use(cors(corsOptions));
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -31,7 +26,9 @@ app.post('/api/upload', upload.single('file'), function (req, res){
 
 const PORT = 3001;
 
-
+app.use(cors({
+  origin: 'https://main--zesty-starlight-1234d5.netlify.app/'
+}))
 app.use(express.json())
 app.use(cookieParser())
 app.use("/api/auth", authRoutes)
