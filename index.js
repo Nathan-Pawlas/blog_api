@@ -7,6 +7,12 @@ import multer from 'multer'
 
 const app = express()
 
+var corsOptions = {
+  origin: "https://main--zesty-starlight-1234d5.netlify.app/",
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, '../frontend/public/upload')
