@@ -27,7 +27,7 @@ app.post('/api/upload', upload.single('file'), function (req, res){
 const PORT = 3001;
 
 app.use(cors({
-  origin: '*'
+  origin: 'https://zesty-starlight-1234d5.netlify.app/'
 }))
 app.use(express.json())
 app.use(cookieParser())
