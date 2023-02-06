@@ -24,8 +24,6 @@ export const getPost = (req, res) => {
   }
 
   export const addPost = (req, res) => {
-    const username = req.data.username
-    if (username != "Nate") return res.status(401).json("You're Not Nathan!");
       const q =
         "INSERT INTO posts(`title`, `desc`, `text`, `img`, `cat`, `date`) VALUES (?)";
   
