@@ -7,6 +7,7 @@ import cors from 'cors'
 import multer from 'multer'
 
 const app = express()
+app.use(cookieparser())
 
 app.use(cors({
   origin: '*'
@@ -29,7 +30,6 @@ app.post('/api/upload', upload.single('file'), function (req, res){
 })
 
 app.use(express.json())
-app.use(cookieparser())
 app.use("/api/auth", authRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/posts", postRoutes)

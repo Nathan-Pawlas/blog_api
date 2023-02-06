@@ -1,6 +1,7 @@
 import { db } from '../db.js'
 import bcrypt from 'bcryptjs'
 import  jwt  from 'jsonwebtoken'
+import cookieParser from 'cookie-parser'
 export const register = (req,res)=>{
     
     //CHECK EXISTING USER
@@ -44,7 +45,7 @@ export const login = (req,res)=>{
         const token = jwt.sign({id:data[0].id}, "jwtkey")
         const {password, ...other} = data[0]
         res.cookie("access_token", token, {
-            httpOnly:false,
+            httpOnly:true,
         }).status(200).json(other)
 
     })
