@@ -24,12 +24,8 @@ export const getPost = (req, res) => {
   }
 
   export const addPost = (req, res) => {
-    const token = req.cookies.access_token;
-    if (!token) return res.status(401).json("Not authenticated!");
-  
-    jwt.verify(token, "jwtkey", (err, userInfo) => {
-      if (err) return res.status(403).json("Token is not valid!");
-  
+    const username = req.data.username
+    if (username != "Nate") return res.status(401).json("You're Not Nathan!");
       const q =
         "INSERT INTO posts(`title`, `desc`, `text`, `img`, `cat`, `date`,`uid`) VALUES (?)";
   
@@ -40,7 +36,7 @@ export const getPost = (req, res) => {
         req.body.img,
         req.body.cat,
         req.body.date,
-        userInfo.id,
+        1,
       ];
   
       db.query(q, [values], (err, data) => {
