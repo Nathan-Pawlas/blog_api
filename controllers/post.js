@@ -27,7 +27,7 @@ export const getPost = (req, res) => {
     const username = req.data.username
     if (username != "Nate") return res.status(401).json("You're Not Nathan!");
       const q =
-        "INSERT INTO posts(`title`, `desc`, `text`, `img`, `cat`, `date`,`uid`) VALUES (?)";
+        "INSERT INTO posts(`title`, `desc`, `text`, `img`, `cat`, `date`) VALUES (?)";
   
       const values = [
         req.body.title,
@@ -36,7 +36,6 @@ export const getPost = (req, res) => {
         req.body.img,
         req.body.cat,
         req.body.date,
-        1,
       ];
   
       db.query(q, [values], (err, data) => {
