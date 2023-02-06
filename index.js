@@ -33,6 +33,7 @@ app.use("/api/auth", authRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/posts", postRoutes)
 
-app.listen(process.env.PORT, () => {
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => {
     console.log(`Connected to ${PORT}!`)
 })
