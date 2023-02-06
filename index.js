@@ -8,6 +8,10 @@ import multer from 'multer'
 
 const app = express()
 
+app.use(cors({
+  origin: '*'
+}))
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, '/public/upload')
@@ -24,9 +28,6 @@ app.post('/api/upload', upload.single('file'), function (req, res){
     res.status(200).json(file.filename)
 })
 
-app.use(cors({
-  origin: '*'
-}))
 app.use(express.json())
 app.use(cookieParser())
 app.use("/api/auth", authRoutes)
