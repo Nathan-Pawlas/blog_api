@@ -14,19 +14,19 @@ app.use(cors({
 }))
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './public/upload')
-    },
-    filename: function (req, file, cb) {
-      cb(null, Date.now()+file.originalname)
-    }
-  })
+  destination: function (req, file, cb) {
+    cb(null, './public/upload')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now()+file.originalname)
+  }
+})
 
 const upload = multer({storage})
 
 app.post('/api/upload', upload.single('file'), function (req, res){
-    const file = req.file
-    res.status(200).json(file.filename)
+  const file = req.file
+  res.status(200).json(file.filename)
 })
 
 app.use(express.json())
