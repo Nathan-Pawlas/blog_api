@@ -24,8 +24,6 @@ app.post('/api/upload', upload.single('file'), function (req, res){
     res.status(200).json(file.filename)
 })
 
-const PORT = 3001;
-
 app.use(cors({
   origin: '*'
 }))
@@ -35,6 +33,6 @@ app.use("/api/auth", authRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/posts", postRoutes)
 
-app.listen(process.env.PORT || PORT, () => {
+app.listen(process.env.PORT || 5000, () => {
     console.log(`Connected to ${PORT}!`)
 })
