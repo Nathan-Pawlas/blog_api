@@ -32,10 +32,10 @@ export const getPost = (req, res) => {
         req.body.title,
         req.body.desc,
         req.body.text,
-        req.body.img,
+        //req.body.img,
         req.body.cat,
         req.body.date,
-        userInfo.id,
+        //userInfo.id,
       ];
   
       db.query(q, [values], (err, data) => {
