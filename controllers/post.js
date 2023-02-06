@@ -43,7 +43,6 @@ export const getPost = (req, res) => {
         if (err) return res.status(500).json(err);
         return res.json("Post has been created.");
       });
-    });
   };
 
 export const deletePost = (req,res)=> {
