@@ -44,7 +44,8 @@ export const login = (req,res)=>{
         const token = jwt.sign({id:data[0].id}, "jwtkey")
         const {password, ...other} = data[0]
         res.cookie("access_token", token, {
-            httpOnly:true
+            httpOnly:true,
+            secure: process.env.NODE_ENV === "production",
         }).status(200).json(other)
 
     })
