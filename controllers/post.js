@@ -26,16 +26,16 @@ export const getPost = (req, res) => {
   export const addPost = (req, res) => {
 
       const q =
-        "INSERT INTO posts(`title`, `desc`, `text`, `cat`, `date`,`uid`) VALUES (?)";
+        "INSERT INTO posts(`title`, `desc`,`img`, `text`, `cat`, `date`,`uid`) VALUES (?)";
   
       const values = [
         req.body.title,
         req.body.desc,
         req.body.text,
-        //req.body.img,
+        img = null,
         req.body.cat,
         req.body.date,
-        //userInfo.id,
+        uid = 14,
       ];
   
       db.query(q, [values], (err, data) => {
