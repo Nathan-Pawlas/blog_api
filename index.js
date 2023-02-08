@@ -5,7 +5,6 @@ import postRoutes from "./routes/posts.js"
 import cookieparser from 'cookie-parser'
 import cors from 'cors'
 import multer from 'multer'
-import path from 'path'
 
 const app = express()
 app.use(cookieparser())
@@ -14,37 +13,22 @@ app.use(cors({
   origin: '*'
 }))
 
-app.use(bodyparser.json())
-  app.use(bodyparser.urlencoded({
-    extended: true }))
-
-var storage = multer.diskStorage({
-  destination: (req, file, callBack) => {
-      callBack(null, './public/images/')     // './public/images/' directory name where save the file
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/upload')
   },
-  filename: (req, file, callBack) => {
-      callBack(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+  filename: function (req, file, cb) {
+    cb(null, Date.now()+file.originalname)
   }
 })
 
-var upload = multer({
-  storage: storage})
+const upload = multer({storage})
 
-const upload = multer({storage: storage})
+app.post('/api/upload', upload.single('file'), function (req, res){
+  const file = req.file
+  res.status(200).json(file.filename)
+})
 
-app.post("/api/upload", upload.single('file'), (req, res) => {
-  if (!req.file) {
-      console.log("No file upload");
-  } else {
-      console.log(req.file.filename)
-      var imgsrc = 'https://classicsblogapi.herokuapp.com/public/uploads/' + req.file.filename
-      var insertData = "INSERT INTO posts(img)VALUES(?)"
-      db.query(insertData, [imgsrc], (err, result) => {
-          if (err) throw err
-          console.log("file uploaded")
-      })
-  }
-});
 app.use(express.json())
 app.use("/api/auth", authRoutes)
 app.use("/api/users", userRoutes)
