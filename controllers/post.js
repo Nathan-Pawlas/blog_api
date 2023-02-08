@@ -43,8 +43,8 @@ export const getPost = (req, res) => {
   };
 
 export const deletePost = (req,res)=> {
-  
-    const q = "DELETE FROM posts WHERE `id` = ? AND `uid` = ?"
+    const postId = req.params.id
+    const q = "DELETE FROM posts WHERE `id` = ?"
 
     db.query(q,[postId], (err,data) => {
       if(err) return res.status(403).json("YOU CAN NOT DELETE OTHER'S POSTS")
