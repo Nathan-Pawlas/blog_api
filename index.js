@@ -4,30 +4,36 @@ import userRoutes from "./routes/users.js"
 import postRoutes from "./routes/posts.js"
 import cookieparser from 'cookie-parser'
 import cors from 'cors'
+import cloudinary from 'cloudinary'
+import { CloudinaryStorage } from 'multer-storage-cloudinary'
 import multer from 'multer'
+
 
 const app = express()
 app.use(cookieparser())
 
+cloudinary.config({
+  cloud_name: dogm9req7,
+  api_key: 237215398513971,
+  api_secret: QpALFaw8KmpLk2gzG0nPq2_pYpo,
+})
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "DEV",
+  },
+});
+
+const upload = multer({ storage: storage });
+
+app.post("/api/upload", upload.single("file"), async (req, res) => {
+  return res.json({ picture: req.file.path });
+});
+
 app.use(cors({
   origin: '*'
 }))
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, '/public/uploads')
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now()+file.originalname)
-  }
-})
-
-const upload = multer({storage})
-
-app.post('/api/upload', upload.single('file'), function (req, res){
-  const file = req.file
-  res.status(200).json(file.filename)
-})
 
 app.use(express.json())
 app.use("/api/auth", authRoutes)
