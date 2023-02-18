@@ -13,9 +13,9 @@ const app = express()
 app.use(cookieparser())
 
 cloudinary.config({
-  cloud_name: dogm9req7,
-  api_key: 237215398513971,
-  api_secret: QpALFaw8KmpLk2gzG0nPq2_pYpo,
+  cloud_name: 'dogm9req7',
+  api_key: '237215398513971',
+  api_secret: 'QpALFaw8KmpLk2gzG0nPq2_pYpo',
 })
 
 const storage = new CloudinaryStorage({
